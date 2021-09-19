@@ -2,25 +2,31 @@ library(palmerpenguins)
 library(faux)
 library(tidyverse)
 
+# imagine some values were incorrect and needed to be cleaned
+penguins_clean <- penguins %>% 
+  faux::messy(prop = 0.2, 1:8) %>% 
+  rename_with(~ str_c(., "_clean")) 
 
-penguins_messy <- penguins %>% 
-  faux::messy(prop = 0.2, 3:8) %>% 
-  rename_with(.cols = 3:8, .fn = ~ str_c(., "_messy"))
+# retain original variables + cleaned variables
+penguins_full <- penguins %>% 
+  bind_cols(penguins_clean)
 
 
-penguins_messy %>% 
+check <- penguins_full %>% 
   # create dummy variables representing if the observation is missing ----
-  mutate_at(vars(matches("messy")), list(dummy = is.na)) %>% 
+  mutate_all(list(dummy = is.na)) %>% 
   # compute a row wise sum of missing ----
   rowwise() %>% 
   mutate(
-    # percent of observations that are complete (non-missing) ----
-    pct_complete = 1- mean(c_across(matches("_messy_dummy")))
+    # percent of observations that are complete (non-missing) for clean variables ----
+    pct_complete_clean = 1 - mean(c_across(matches("_clean_dummy"))),
+    # percent of observations that are complete (non-missing) for original variables ----
+    pct_complete_orginal = 1 - mean(c_across(matches("[^_clean]_dummy")))
   ) %>% 
   # remove grouping from rowwise ----
   ungroup() %>% 
   # remove dummy variables ----
-  dplyr::select(-matches("dummy"))
+  dplyr::select(-matches("dummy")) 
 
 
 
