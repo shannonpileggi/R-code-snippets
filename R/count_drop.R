@@ -4,3 +4,6 @@ dat <- tibble(fruit = c("apple", "apple", "apple", "orange")) %>%
 dat %>% count(fruit)
 
 dat %>% count(fruit, .drop = FALSE)
+
+
+
