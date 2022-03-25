@@ -20,3 +20,27 @@ dat_original %>%
   mutate(
     min_date = min(date_1, date_2, na.rm = TRUE)
   ) 
+
+
+# warning reprex -------------------------------------------------------------------------------------
+
+library(tidyverse)
+library(lubridate, warn.conflicts = FALSE)
+
+dat <- tibble::tibble(date_1 = as_date(c(NA, "2022-01-01", "2022-01-01")),
+                      date_2 = as_date(c(NA, NA, "2021-01-01")))
+
+dat %>%
+  rowwise() %>%
+  mutate(min_date = case_when(
+    !is.na(date_1) & !is.na(date_2) ~ min(date_1, date_2, na.rm = TRUE)
+  ))
+
+suppressWarnings({
+  dat %>%
+    rowwise() %>%
+    mutate(min_date = case_when(
+      !is.na(date_1) & !is.na(date_2) ~ min(date_1, date_2, na.rm = TRUE)
+    ))
+})
+
