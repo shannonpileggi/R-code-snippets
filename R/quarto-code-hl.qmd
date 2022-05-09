@@ -1,0 +1,25 @@
+---
+title: "Untitled"
+format: revealjs
+---
+
+## Highlight line 1-2
+
+
+```{r, echo=TRUE, eval=FALSE, `code-line-numbers` = "1-2"}
+x <- 1:10
+x
+LETTERS[x]
+```
+
+
+## Highlight line 3
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+#| code-line-numbers: "3"
+x <- 1:10
+x
+LETTERS[x]
+```
