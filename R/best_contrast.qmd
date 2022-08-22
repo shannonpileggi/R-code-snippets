@@ -1,0 +1,53 @@
+---
+title: "Best contrast colors"
+format: revealjs
+---
+
+##
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(tidyverse)
+library(prismatic)
+
+dat <- tibble(
+  colors = c("cyan", "brown1", "darkorchid3", "darkolivegreen1", "darkblue")  
+  ) |> 
+  mutate(
+    contrast = best_contrast(colors)
+    )
+
+
+ggplot() +
+  geom_tile(aes(x = 1:5, y = rep(1, 5)), fill = dat$contrast) +
+  geom_tile(aes(x = 1:5, y = rep(2, 5)), fill = dat$colors) +
+  theme_void()
+
+```
+
+##
+
+```{r}
+#| echo: false
+#| eval: true
+
+library(tidyverse)
+library(prismatic)
+
+dat <- tibble(
+  colors = c("cyan", "brown1", "darkorchid3", "darkolivegreen1", "darkblue")  
+  ) |> 
+  mutate(
+    contrast = best_contrast(colors)
+    )
+
+dat
+
+ggplot() +
+  geom_tile(aes(x = 1:5, y = rep(1, 5)), fill = dat$contrast) +
+  geom_tile(aes(x = 1:5, y = rep(2, 5)), fill = dat$colors) +
+  theme_void()
+
+```
