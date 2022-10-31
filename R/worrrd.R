@@ -13,7 +13,7 @@ math <- dplyr::tribble(
 )
 
 
-bunny_img <- "https://i.etsystatic.com/10685059/r/il/db9c20/1823172566/il_1588xN.1823172566_j0gz.jpg"
+bunny_img <- "http://clipart-library.com/img/1808961.png"
 
 bunny_search <- wordsearch(
   words = math$solution, 
@@ -24,4 +24,8 @@ bunny_search <- wordsearch(
   )
 
 
-plot(bunny_search, solution = TRUE, title = "Math is so bunny")
+plot(
+  bunny_search, 
+  solution = TRUE, 
+  title = "Bunny Math 🐰"
+  )
